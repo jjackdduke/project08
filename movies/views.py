@@ -8,20 +8,22 @@ from django.shortcuts import get_list_or_404, get_object_or_404
 # Create your views here.
 @require_safe
 def index(request):
-    if request.user.is_authenticated: 
-        movies = get_list_or_404(Movie)
-        context = {
-            'movies': movies,  
-        }
-        return render(request, 'movies/index.html', context) 
-    else:
-        redirect('accounts:login')
+    movies = get_list_or_404(Movie)
+    context = {
+        'movies': movies,  
+    }
+    return render(request, 'movies/index.html', context) 
 
 
 
 @require_safe
 def detail(request, movie_pk):
-    pass
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    context = {
+        'movie': movie, 
+    }
+    return render(request, 'movies/detail.html', context)
+    
 
 
 @require_safe
